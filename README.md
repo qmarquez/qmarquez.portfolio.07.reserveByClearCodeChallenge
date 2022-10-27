@@ -2,8 +2,5 @@
 ## Code Challenge
 
 ### Challenge setup
-Install dependecies: `npm install`
+Install dependecies & setup: `npm install && npm run setup`
 Run the app: `npm start`
-
-qmarquez
-me9ZYfWUWdOX5fVl
