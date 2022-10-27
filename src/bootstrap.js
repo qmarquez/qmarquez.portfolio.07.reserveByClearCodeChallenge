@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-
 export async function bootstrap() {
-  const { env } = process;
-  mongoose.connect(env.MONGODB_URI);
+  await mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+  console.log('Database succesfully connected.');
 }

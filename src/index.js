@@ -1,6 +1,15 @@
-import express from "express";
+import * as dotenv from 'dotenv';
 import { bootstrap } from "./bootstrap.js";
+import app from './app.js';
 
-const app = express();
+dotenv.config()
 
-app.listen(3000, bootstrap);
+async function start() {
+  await bootstrap();
+
+  app.listen(3000, () => {
+    console.log('Server running');
+  });
+};
+
+start();
