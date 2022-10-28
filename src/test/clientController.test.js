@@ -2,6 +2,7 @@ import { Client } from "../models/client.model";
 import createJWT from "../utils/createJWT.js";
 import { userRoles } from "../models/user.model.js";
 import cookies from '../utils/cookies.js';
+import { StatusCodes } from 'http-status-codes';
 
 describe('· Client controller', () => {
   let token;
@@ -23,7 +24,7 @@ describe('· Client controller', () => {
         zip: '1676',
         headcount: 'a person',
       })
-      .expect(201);
+      .expect(StatusCodes.CREATED);
   });
 
   it('Properly updated client', async () => {
@@ -52,7 +53,7 @@ describe('· Client controller', () => {
         headcount: 'Another person',
         isPublic: true
       })
-      .expect(200)
+      .expect(StatusCodes.OK)
       .expect(
         (res) => {
           expect(res.body.payload.companyName).toBe('Another Clear');
@@ -82,7 +83,7 @@ describe('· Client controller', () => {
 
     await supertestedApp.delete('/client/123')
       .set('Cookie', [`${cookies.jwtCookie}=${token}`])
-      .expect(200)
+      .expect(StatusCodes.OK)
       .expect(
         (res) => {
           expect(res.body.payload.companyName).toBe('Clear');
@@ -94,5 +95,59 @@ describe('· Client controller', () => {
           expect(res.body.payload.isPublic).toBe(false);
         }
       );
+  });
+
+  it('I can find by State', async () => {
+    const savedClients = [{
+      companyName: 'Clear',
+      address: 'address',
+      city: 'CABA',
+      state: 'CABA',
+      zip: '1676',
+      headcount: 'person',
+      isPublic: false
+    }];
+
+    jest.spyOn(Client, 'find')
+      .mockImplementationOnce(
+        (query) => {
+          expect(query.state).toBe('qwerty');
+          return Promise.resolve(savedClients);
+        }
+      );
+
+    await supertestedApp.get('/client?field=state&value=qwerty')
+      .set('Cookie', [`${cookies.jwtCookie}=${token}`])
+      .expect(StatusCodes.OK);
+  });
+
+  it('I can find by companyName', async () => {
+    const savedClients = [{
+      companyName: 'Clear',
+      address: 'address',
+      city: 'CABA',
+      state: 'CABA',
+      zip: '1676',
+      headcount: 'person',
+      isPublic: false
+    }];
+
+    jest.spyOn(Client, 'find')
+      .mockImplementationOnce(
+        (query) => {
+          expect(query.companyName).toBeInstanceOf(RegExp);
+          return Promise.resolve(savedClients);
+        }
+      );
+
+    await supertestedApp.get('/client?field=companyName&value=qwerty')
+      .set('Cookie', [`${cookies.jwtCookie}=${token}`])
+      .expect(StatusCodes.OK);
+  });
+  
+  it('I receive an error if the field it\'s not allowed to find in', async () => {
+    await supertestedApp.get('/client?field=anyField&value=qwerty')
+      .set('Cookie', [`${cookies.jwtCookie}=${token}`])
+      .expect(StatusCodes.BAD_REQUEST);
   });
 });

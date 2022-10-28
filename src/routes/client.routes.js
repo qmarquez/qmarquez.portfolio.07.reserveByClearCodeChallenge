@@ -8,6 +8,7 @@ clientRoutes.route('/:clientId')
   .delete(clientController.delete);
 
 clientRoutes.route('/')
+  .get(clientController.get)
   .post(clientController.post);
 
 export default clientRoutes;

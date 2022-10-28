@@ -7,6 +7,27 @@ import { StatusCodes } from 'http-status-codes';
  * @type {import('./ExpressController').ExpressHandler}
  */
 const clientController = {
+  get: async function (req, res) {
+    try {
+      const { field, value } = req.query;
+      const searchStrategy = searchStrategies[field];
+
+      if (!searchStrategy) {
+        createStandardError('Invalid field to find in.', StatusCodes.BAD_REQUEST);
+      }
+
+      const results = await searchStrategy(value);
+      const jsonResult = createStandardResponse(`Total finded clients ${results.length}`, results);
+
+      res.status(StatusCodes.OK)
+        .json(jsonResult);
+    } catch (error) {
+      if (error.info) {
+        throw error;
+      }
+      createStandardError('Error fetching clients.');
+    }
+  },
   post: async function (req, res) {
     try {
       const { body } = req;
@@ -53,5 +74,31 @@ const clientController = {
     }
   }
 };
+
+const searchStrategies = {
+  state: (state) => {
+    return Client.find({ state });
+  },
+  companyName: (companyName) => {
+    // There is a dependency for fuzzy search, but it's not compatible with mongoose ^6
+    // This fuzzy search it's an approach and I'm pretty sure it's not so performant.
+    const fuzzyWords = [];
+    for (const word of companyName.split(' ')) {
+      if (word.length > 2) {
+        for (let length = 2; length < word.length; length++) {
+          for (let start = 0; length + start <= word.length; start++) {
+            fuzzyWords.push(word.substring(start, length + start));
+          }
+        }
+      } else {
+        fuzzyWords.push(word);
+      }
+    }
+
+    const rx = new RegExp(fuzzyWords.join('|'), 'i');
+
+    return Client.find({ companyName: rx });
+  }
+}
 
 export default clientController;
