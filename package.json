@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.19.6",
+    "@jest/globals": "^29.2.2",
     "eslint": "^8.26.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",

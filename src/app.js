@@ -24,6 +24,7 @@ if (process.env.NODE_ENV === nodeEnvs.dev) {
 }
 
 app.use('/auth', authRoutes);
+app.use('/client', validateJWTMiddleware, accessControlMiddleware, clientRoutes);
 app.use(errorHandlerMiddleware);
 
 export default app;

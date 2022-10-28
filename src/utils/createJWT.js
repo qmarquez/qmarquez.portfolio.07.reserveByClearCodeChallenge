@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
-export default function createJWT(user, subject) {
+export default function createJWT(payloadUser, subject) {
   return jwt.sign(
-    { user },
+    { user: payloadUser },
     process.env.PRIVATE_KEY,
     {
       issuer: 'clear',
