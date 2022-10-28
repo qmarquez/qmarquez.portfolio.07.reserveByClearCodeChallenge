@@ -1,15 +1,18 @@
 import { Router } from "express";
+import memberNotesRoutes from "./memberNotes.routes.js";
 import memberController from "../controllers/member.controller.js";
 
 const memberRoutes = Router();
 
-memberRoutes.route('/:memberId')
-  .put(memberController.put)
-  .delete(memberController.delete);
+memberRoutes.get('/all', memberController.get);
 
 memberRoutes.patch('/changeClient/:memberId', memberController.patch)
 
-memberRoutes.get('/all', memberController.get);
+memberRoutes.use('/notes', memberNotesRoutes)
+
+memberRoutes.route('/:memberId')
+  .put(memberController.put)
+  .delete(memberController.delete);
 
 memberRoutes.post('/', memberController.post);
 

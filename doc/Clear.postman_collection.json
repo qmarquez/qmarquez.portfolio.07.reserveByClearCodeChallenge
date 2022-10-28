@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "3d7777f0-2552-422d-933c-61a80786df88",
+		"name": "Clear",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19717741"
+	},
+	"item": [
+		{
+			"name": "Get clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/client/findByField?field=state&value=a state",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"client",
+						"findByField"
+					],
+					"query": [
+						{
+							"key": "field",
+							"value": "state"
+						},
+						{
+							"key": "value",
+							"value": "a state"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"companyName\": \"clear\",\r\n  \"address\": \"some street 123\",\r\n  \"city\": \"a city\",\r\n  \"state\": \"a state\",\r\n  \"zip\": \"123456ACS\",\r\n  \"headcount\": \"A Person\",\r\n  \"isPublic\": true,\r\n  \"aLSDField\": \"This shouldn't be stored\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/client",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update client",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"companyName\": \"another clear\",\r\n  \"address\": \"another street 123\",\r\n  \"city\": \"another city\",\r\n  \"state\": \"another state\",\r\n  \"zip\": \"654321SCA\",\r\n  \"headcount\": \"Another Person\",\r\n  \"isPublic\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/client/635b1631f8c410ba58853375",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"client",
+						"635b1631f8c410ba58853375"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete client",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/client/635b1631f8c410ba58853375",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"client",
+						"635b1631f8c410ba58853375"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"sales admin\",\r\n    \"role\": \"salesAdmin\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/auth/signup",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"sales admin\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/auth/signin",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get members",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/member/all",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create member",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"635b15ee345939b9da3025d0\",\r\n    \"memberName\": \"a Name\",\r\n    \"memberPhoneNumber\": \"+5411311111111\",\r\n    \"email\": \"aMail@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/member",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update member",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"clientId\": \"635b15ee345939b9da3025d0\",\r\n    \"memberName\": \"another Name\",\r\n    \"memberPhoneNumber\": \"+5411322222222\",\r\n    \"email\": \"anotherMail@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/member/635be7c95dd29e5b7fd2a2f9",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"635be7c95dd29e5b7fd2a2f9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update member client",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newClientId\": \"635b15ee345939b9da3025d0\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/member/635be7c95dd29e5b7fd2a2f9",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"635be7c95dd29e5b7fd2a2f9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete member",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/member/635be7d50060bcb89fa0658f",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"635be7d50060bcb89fa0658f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create member note",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"note\": \"this anotther note for a member\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseurl}}/member/notes/635be7c95dd29e5b7fd2a2f9",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"notes",
+						"635be7c95dd29e5b7fd2a2f9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get member notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseurl}}/member/notes/635be7c95dd29e5b7fd2a2f9",
+					"host": [
+						"{{baseurl}}"
+					],
+					"path": [
+						"member",
+						"notes",
+						"635be7c95dd29e5b7fd2a2f9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

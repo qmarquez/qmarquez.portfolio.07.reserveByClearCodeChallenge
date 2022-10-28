@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 /**
  * @type {import('./ExpressController').ExpressHandler}
  */
-const clientController = {
+const memberController = {
   get: async function (req, res) {
     try {
       // This should be paginated for a production grade.
@@ -31,7 +31,7 @@ const clientController = {
         .json(createStandardResponse('Member successfully created', member));
     } catch (error) {
       console.log(error)
-      createStandardError('Error creating client.');
+      createStandardError('Error creating member.');
     }
   },
   put: async function (req, res) {
@@ -49,7 +49,7 @@ const clientController = {
         .json(createStandardResponse('Member successfully updated', member));
     } catch (error) {
       console.log(error);
-      createStandardError('Error updating client.');
+      createStandardError('Error updating member.');
     }
   },
   patch: async function (req, res) {
@@ -65,19 +65,19 @@ const clientController = {
         .json(createStandardResponse('Member successfully patched', member));
     } catch (error) {
       console.log(error);
-      createStandardError('Error updating client.');
+      createStandardError('Error updating member.');
     }
   },
   delete: async function (req, res) {
     try {
-      const deletedClient = await Member.findByIdAndDelete(req.params.clientId);
+      const deletedMember = await Member.findByIdAndDelete(req.params.memberId);
 
       res.status(StatusCodes.OK)
-        .json(createStandardResponse('Member successfully deleted', deletedClient));
+        .json(createStandardResponse('Member successfully deleted', deletedMember));
     } catch (error) {
-      createStandardError('Error deleting client.');
+      createStandardError('Error deleting member.');
     }
   }
 };
 
-export default clientController;
+export default memberController;

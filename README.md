@@ -10,4 +10,8 @@ public: `openssl rsa -in rsa_private.pem -pubout -out rsa_public.pem`
 ### Challenge setup
 1. Generate public and private keys if you don't have others ones.
 2. Install dependecies & setup: `npm install && npm run setup`.
-3. Run the app: `npm start`.
+3. Create the `.env` file with all values.
+4. Run the app: `npm start`.
+
+#### NOTES
+In the `./doc` folder you can find a postman collection with requests examples for testing the app.
