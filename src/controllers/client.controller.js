@@ -9,6 +9,7 @@ import { StatusCodes } from 'http-status-codes';
 const clientController = {
   get: async function (req, res) {
     try {
+      // This should be paginated for a production grade.
       const { field, value } = req.query;
       const searchStrategy = searchStrategies[field];
 
@@ -64,8 +65,7 @@ const clientController = {
   },
   delete: async function (req, res) {
     try {
-      const { params } = req;
-      const deletedClient = await Client.findByIdAndDelete(params.clientId);
+      const deletedClient = await Client.findByIdAndDelete(req.params.clientId);
 
       res.status(StatusCodes.OK)
         .json(createStandardResponse('Client successfully deleted', deletedClient));

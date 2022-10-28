@@ -116,7 +116,7 @@ describe('· Client controller', () => {
         }
       );
 
-    await supertestedApp.get('/client?field=state&value=qwerty')
+    await supertestedApp.get('/client/findByField?field=state&value=qwerty')
       .set('Cookie', [`${cookies.jwtCookie}=${token}`])
       .expect(StatusCodes.OK);
   });
@@ -140,13 +140,13 @@ describe('· Client controller', () => {
         }
       );
 
-    await supertestedApp.get('/client?field=companyName&value=qwerty')
+    await supertestedApp.get('/client/findByField?field=companyName&value=qwerty')
       .set('Cookie', [`${cookies.jwtCookie}=${token}`])
       .expect(StatusCodes.OK);
   });
   
   it('I receive an error if the field it\'s not allowed to find in', async () => {
-    await supertestedApp.get('/client?field=anyField&value=qwerty')
+    await supertestedApp.get('/client/findByField?field=anyField&value=qwerty')
       .set('Cookie', [`${cookies.jwtCookie}=${token}`])
       .expect(StatusCodes.BAD_REQUEST);
   });

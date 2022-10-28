@@ -7,8 +7,8 @@ clientRoutes.route('/:clientId')
   .put(clientController.put)
   .delete(clientController.delete);
 
-clientRoutes.route('/')
-  .get(clientController.get)
-  .post(clientController.post);
+clientRoutes.get('/findByField', clientController.get);
+
+clientRoutes.post('/', clientController.post);
 
 export default clientRoutes;
